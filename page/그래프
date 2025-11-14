@@ -1,0 +1,53 @@
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+st.title("📊 그래프 예시")
+
+# 탭으로 여러 그래프 표시
+tab1, tab2, tab3 = st.tabs(["라인 그래프", "막대 그래프", "산점도"])
+
+with tab1:
+    st.subheader("월별 판매액 추이")
+    # 샘플 데이터
+    months = ['1월', '2월', '3월', '4월', '5월', '6월']
+    sales = [10, 24, 36, 18, 45, 38]
+    
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(months, sales, marker='o', linewidth=2, markersize=8, color='#1f77b4')
+    ax.set_xlabel('월', fontsize=12)
+    ax.set_ylabel('판매액 (만원)', fontsize=12)
+    ax.grid(True, alpha=0.3)
+    plt.tight_layout()
+    st.pyplot(fig)
+
+with tab2:
+    st.subheader("상품별 판매량")
+    products = ['상품A', '상품B', '상품C', '상품D', '상품E']
+    quantities = [50, 85, 75, 60, 95]
+    
+    fig, ax = plt.subplots(figsize=(10, 5))
+    colors = ['#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
+    ax.bar(products, quantities, color=colors)
+    ax.set_ylabel('판매량 (개)', fontsize=12)
+    ax.grid(True, alpha=0.3, axis='y')
+    plt.tight_layout()
+    st.pyplot(fig)
+
+with tab3:
+    st.subheader("광고비 vs 매출 상관관계")
+    np.random.seed(42)
+    ad_spend = np.random.uniform(100, 500, 50)
+    revenue = ad_spend * 2.5 + np.random.normal(0, 100, 50)
+    
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.scatter(ad_spend, revenue, alpha=0.6, s=100, color='#17becf')
+    ax.set_xlabel('광고비 (만원)', fontsize=12)
+    ax.set_ylabel('매출 (만원)', fontsize=12)
+    ax.grid(True, alpha=0.3)
+    plt.tight_layout()
+    st.pyplot(fig)
+
+st.divider()
+st.write("💡 여러 종류의 그래프를 탭에서 확인할 수 있습니다!")
